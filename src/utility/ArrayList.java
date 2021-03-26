@@ -26,9 +26,10 @@ public class ArrayList<E> implements List<E> {
     }
 
     public boolean add(E item) {
+        int oldSize = size;
         ensureCapacity(size + 1);
-        data[size] = item;
-        return true;
+        data[size++] = item;
+        return size == (oldSize + 1);
     }
 
     public void add(int index, E item) {
@@ -92,7 +93,7 @@ public class ArrayList<E> implements List<E> {
     }
 
     public Iterator<E> iterator() {
-        return new ArrayListIterator();
+        return new ArrayListIterator(this);
     }
 
     public E remove(int index) {
@@ -153,12 +154,12 @@ public class ArrayList<E> implements List<E> {
     }
 
     private class ArrayListIterator implements Iterator<E> {
-        private int index;
-        private ArrayList list;
+        int index;
+        boolean removeOK;
 
-        public ArrayListIterator(ArrayList list) {
-            this.list = list;
+        public ArrayListIterator() {
             index = 0;
+            removeOK = false;
         }
 
         public boolean hasNext() {
@@ -174,7 +175,8 @@ public class ArrayList<E> implements List<E> {
         }
 
         public void remove() {
-            if (!ArrayList.this.remove(ArrayList.this.get(index))) {
+            removeOK = ArrayList.this.remove(ArrayList.this.get(index));
+            if (!removeOK) {
                 throw new IllegalStateException();
             }
             ArrayList.this.remove(index - 1);
