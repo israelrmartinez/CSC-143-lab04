@@ -31,7 +31,12 @@ public class LinkedList<E> implements List<E> {
     }
 
     public void append(E item) {
-
+        if (last == null) {
+            throw new RuntimeException();
+        }
+        Node<E> newNode = new Node<E>(item);
+        last.next = newNode;
+        last = newNode;
     }
 
     public void checkIndex(int index) {
@@ -51,6 +56,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     private E detach(int index) {
+        checkIndex(index);
         Node<E> current = node(index);
         Node<E> prev = current.prev;
         Node<E> next = current.next;
