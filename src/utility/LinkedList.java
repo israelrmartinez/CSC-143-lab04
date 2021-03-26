@@ -4,8 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LinkedList<E> implements List<E> {
-    private Node<E> first;
-    private Node<E> last;
+    private Node<E> first, last;
     private int size;
 
     public LinkedList() {
@@ -112,7 +111,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        return size() == 0;
     }
 
     public Iterator<E> iterator() {

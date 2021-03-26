@@ -3,36 +3,36 @@ package utility;
 import java.util.NoSuchElementException;
 
 public class MyStack<E> {
-    private Node<E> front;
+    private Node<E> first;
     int size;
 
     public MyStack() {
-        this.front = null;
+        this.first = null;
         size = 0;
     }
 
     public void push(E item) {
         Node<E> newNode = new Node(item);
-        newNode.next = front;
-        front = newNode;
+        newNode.next = first;
+        first = newNode;
         size++;
     }
 
     public E pop() {
-        if (size == 0) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        E top = front.data;
-        front = front.next;
+        E top = first.data;
+        first = first.next;
         size--;
         return top;
     }
 
     public E peek() {
-        if (size == 0) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        return front.data;
+        return first.data;
     }
 
     public int size() {
@@ -40,7 +40,7 @@ public class MyStack<E> {
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        return size() == 0;
     }
 
     public Iterator<E> iterator() {
@@ -49,7 +49,7 @@ public class MyStack<E> {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        Node<E> current = front;
+        Node<E> current = first;
         while (current != null) {
             sb.insert(0, current.data);
             sb.insert(0, ' ');
@@ -77,7 +77,7 @@ public class MyStack<E> {
         private Node<E> current;
 
         public StackIterator() {
-            current = front;
+            current = first;
         }
 
         public boolean hasNext() {
