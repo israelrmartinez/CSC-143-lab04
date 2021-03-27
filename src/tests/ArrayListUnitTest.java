@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
-
 import utility.ArrayList;
 import utility.List;
 
@@ -127,7 +126,7 @@ public class ArrayListUnitTest {
     void testContains() {
 
         assertNull(list);
-        list = new ArrayList<String>();
+        ArrayList<String>list = new ArrayList<String>();
 
         System.out.println("---------------- Test Contains( ) ----------------");
         assertTrue(list.add("Augustus"));
@@ -156,8 +155,7 @@ public class ArrayListUnitTest {
     @Test
     void testEnsureCapacity() {
 
-        assertNull(list);
-        list = new ArrayList<String>(5);
+        ArrayList<String> list = new ArrayList<String>(5);
 
         System.out.println("---------------- Test EnsureCapacity( ) ----------------");
         assertTrue(list.add("Augustus"));

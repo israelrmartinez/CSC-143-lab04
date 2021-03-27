@@ -21,8 +21,8 @@ public class ArrayList<E> implements List<E> {
         if (capacity < 0)
             throw new IllegalArgumentException(message);
 
-        this.data = (E[]) new Object[capacity];
-        size = capacity;
+        data = (E[]) new Object[capacity];
+        size = 0;
     }
 
     public boolean add(E item) {
@@ -46,9 +46,9 @@ public class ArrayList<E> implements List<E> {
 
     private void checkIndex(int index) {
         int min = 0;
-        int max = data.length - 1;
+        int max = size - 1;
         if (index < min || index > max) {
-            throw new ArrayIndexOutOfBoundsException("Invalid index " + index);
+            throw new IndexOutOfBoundsException();
         }
     }
 
@@ -93,17 +93,17 @@ public class ArrayList<E> implements List<E> {
     }
 
     public Iterator<E> iterator() {
-        return new ArrayListIterator(this);
+        return new ArrayListIterator();
     }
 
     public E remove(int index) {
         checkIndex(index);
-        for (int i = index; i <= size - 2; i++) {
+        E removed = data[index];
+        for (int i = index; i <= size - 1; i++) {
             data[i] = data[i + 1];
         }
-        data[size - 1] = null;
         size--;
-        return data[index];
+        return removed;
     }
 
     public boolean remove(E item) {
@@ -119,8 +119,9 @@ public class ArrayList<E> implements List<E> {
 
     public E set(int index, E item) {
         checkIndex(index);
+        E indexData = data[index];
         data[index] = item;
-        return data[index];
+        return indexData;
     }
 
     public void shiftLeft(int index) {
